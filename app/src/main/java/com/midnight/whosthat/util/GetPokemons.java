@@ -10,33 +10,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GetPokemons {
-    public Pokemon getRandomPokemon() {
-        Pokemon pokemon = new Pokemon("teste", "teste");
-
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    String pokemonString = requestApiPokemon(1);
-                    JSONObject pokemon = new JSONObject(pokemonString);
-                    String name = pokemon.getString("name");
-
-                } catch (Exception e) {
-                    Log.d("POKEMON", e.toString());
-
-                }
-
-            }
-
-        }.start();
-
-        return pokemon;
-    }
-
+public class GetPokemons implements Runnable{
+    Pokemon pokemon = new Pokemon("", "");
     private String requestApiPokemon(int pokemonId) throws IOException {
         Log.d("POKEMON", "123");
 
@@ -63,4 +40,29 @@ public class GetPokemons {
     }
 
 
+    @Override
+    public void run() {
+
+        try {
+            String pokemonString = requestApiPokemon(1);
+            JSONObject pokemonJson = new JSONObject(pokemonString);
+            String name = pokemonJson.getString("name");
+
+            JSONObject sprites = new JSONObject(pokemonJson.getString("sprites"));
+            JSONObject other = new JSONObject(sprites.getString("other"));
+            JSONObject officialArtWork = new JSONObject(other.getString("official-artwork"));
+
+            String frontDefault = officialArtWork.getString("front_default");
+
+
+            pokemon.setName(name);
+            pokemon.setImageUrl(frontDefault);
+        } catch (Exception e) {
+            Log.d("POKEMON", e.toString());
+        }
+    }
+
+    public Pokemon getPokemon(){
+        return this.pokemon;
+    }
 }

@@ -8,9 +8,9 @@
     tools:context=".controllers.WhosThatController">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/pokemonImageView"
+        android:layout_width="500px"
+        android:layout_height="500px"
         android:layout_marginTop="235dp"
         android:layout_marginBottom="448dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,16 +23,16 @@
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
-        android:layout_marginBottom="343dp"
+        android:layout_marginBottom="308dp"
         android:ems="10"
         android:hint="Resposta"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/pokemonImageView" />
 
     <Button
         android:id="@+id/button"
@@ -48,5 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answer"
+        android:onClick="checkAnswer"
         app:rippleColor="#F44336" />
 </androidx.constraintlayout.widget.ConstraintLayout>
