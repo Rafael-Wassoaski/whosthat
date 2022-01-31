@@ -16,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, WhosThatController.class);
         startActivity(intent);
+
     }
 }

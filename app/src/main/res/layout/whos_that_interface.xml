@@ -50,4 +50,16 @@
         app:layout_constraintTop_toBottomOf="@+id/answer"
         android:onClick="checkAnswer"
         app:rippleColor="#F44336" />
+
+    <ImageButton
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:srcCompat="@android:drawable/ic_menu_rotate"
+        android:onClick="setPokemon"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

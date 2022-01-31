@@ -1,9 +1,12 @@
 package com.midnight.whosthat.controllers;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,17 +28,15 @@ public class WhosThatController extends AppCompatActivity {
 
         setContentView(R.layout.whos_that_interface);
 
-        getPokemons = new GetPokemons();
-
         try {
-            setPokemon();
+            setPokemon(findViewById(R.id.resetButton));
         }catch (Exception e){
             Log.d("POKEMON", e.getMessage());
         }
     }
 
-    private void setPokemon() throws InterruptedException {
-        Log.d("POKEMON", "antes");
+    public void setPokemon(View v) throws InterruptedException {
+        getPokemons = new GetPokemons();
         Thread thread = new Thread(getPokemons);
         thread.start();
         thread.join();
@@ -44,6 +45,12 @@ public class WhosThatController extends AppCompatActivity {
 
         Log.d("POKE", this.pokemon.getImageUrl());
         Glide.with(this).load(this.pokemon.getImageUrl()).into(pokemonImageView);
+
+        pokemonImageView.setColorFilter(Color.rgb(0, 0, 0));
+
+        ImageButton resetButton = (ImageButton) findViewById(R.id.resetButton);
+        resetButton.setVisibility(View.INVISIBLE);
+
     }
 
     public void checkAnswer(View v) throws InterruptedException {
@@ -53,10 +60,22 @@ public class WhosThatController extends AppCompatActivity {
 
         if(answer.equals(pokemonName)){
             this.showDialogMessage("Resposta correta", String.format("Parabéns você acertou! Este é um %s", this.pokemon.getName()));
-            setPokemon();
+            resetPokemonTint();
         }else{
             this.showDialogMessage("Resposta incorreta", "Resposta errada :( ! Tente novamente");
         }
+    }
+
+    private void resetPokemonTint(){
+        ImageView pokemonImageView = findViewById(R.id.pokemonImageView);
+        ImageButton resetButton = (ImageButton) findViewById(R.id.resetButton);
+        EditText answerEditText = (EditText) findViewById(R.id.answer);
+
+        answerEditText.setText("");
+
+        pokemonImageView.setColorFilter(Color.TRANSPARENT);
+
+        resetButton.setVisibility(View.VISIBLE);
     }
 
     private void showDialogMessage(String title, String message){
