@@ -49,15 +49,13 @@ public class WhosThatController extends AppCompatActivity {
         pokemonImageView.setColorFilter(Color.rgb(0, 0, 0));
 
         ImageButton resetButton = (ImageButton) findViewById(R.id.resetButton);
-        resetButton.setVisibility(View.INVISIBLE);
-
     }
 
     public void checkAnswer(View v) throws InterruptedException {
         EditText answerEditText = (EditText) findViewById(R.id.answer);
         String answer = answerEditText.getText().toString().toLowerCase();
         String pokemonName = this.pokemon.getName().toLowerCase();
-
+        Log.d("POKEMON", pokemonName);
         if(answer.equals(pokemonName)){
             this.showDialogMessage("Resposta correta", String.format("Parabéns você acertou! Este é um %s", this.pokemon.getName()));
             resetPokemonTint();
@@ -68,14 +66,11 @@ public class WhosThatController extends AppCompatActivity {
 
     private void resetPokemonTint(){
         ImageView pokemonImageView = findViewById(R.id.pokemonImageView);
-        ImageButton resetButton = (ImageButton) findViewById(R.id.resetButton);
         EditText answerEditText = (EditText) findViewById(R.id.answer);
 
         answerEditText.setText("");
 
         pokemonImageView.setColorFilter(Color.TRANSPARENT);
-
-        resetButton.setVisibility(View.VISIBLE);
     }
 
     private void showDialogMessage(String title, String message){
