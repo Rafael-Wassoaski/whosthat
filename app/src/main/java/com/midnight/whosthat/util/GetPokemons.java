@@ -22,7 +22,7 @@ public class GetPokemons implements Runnable {
         try {
             Random rand = new Random();
             int pokemonId = rand.nextInt(1118) + 1;
-
+            Log.d("POKEMON", ""+pokemonId);
             String pokemonString = requestApiPokemon(pokemonId);
             JSONObject pokemonJson = new JSONObject(pokemonString);
             String name = pokemonJson.getString("name");
@@ -47,6 +47,7 @@ public class GetPokemons implements Runnable {
     private String requestApiPokemon(int pokemonId) throws IOException {
         URL pokeApiUrl = new URL("https://pokeapi.co/api/v2/pokemon/" + pokemonId);
         HttpURLConnection connection = (HttpURLConnection) pokeApiUrl.openConnection();
+
         connection.setRequestMethod("GET");
         StringBuffer buffer = readConnectionBuffer(connection);
 
