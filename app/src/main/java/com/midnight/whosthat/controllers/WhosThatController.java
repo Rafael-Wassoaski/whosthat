@@ -43,7 +43,7 @@ public class WhosThatController extends AppCompatActivity {
         this.pokemon = getPokemons.getPokemon();
         ImageView pokemonImageView = findViewById(R.id.pokemonImageView);
 
-        Log.d("POKE", this.pokemon.getImageUrl());
+        Log.d("POKEMON", this.pokemon.getImageUrl());
         Glide.with(this).load(this.pokemon.getImageUrl()).into(pokemonImageView);
 
         pokemonImageView.setColorFilter(Color.rgb(0, 0, 0));
