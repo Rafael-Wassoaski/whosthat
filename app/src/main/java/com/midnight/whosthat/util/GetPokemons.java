@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GetPokemons implements Runnable {
-    private Pokemon pokemon = new Pokemon("", "");
+    private final Pokemon pokemon = new Pokemon("", "");
 
     @Override
     public void run() {
@@ -25,7 +27,7 @@ public class GetPokemons implements Runnable {
             Log.d("POKEMON", ""+pokemonId);
             String pokemonString = requestApiPokemon(pokemonId);
             JSONObject pokemonJson = new JSONObject(pokemonString);
-            String name = pokemonJson.getString("name");
+            String name = unifyPokemons(pokemonJson.getString("name"));
 
             JSONObject sprites = new JSONObject(pokemonJson.getString("sprites"));
             JSONObject other = new JSONObject(sprites.getString("other"));
@@ -66,5 +68,20 @@ public class GetPokemons implements Runnable {
         }
 
         return buffer;
+    }
+
+    private String unifyPokemons(String pokemonName){
+        List<String> pokemons = new ArrayList<>();
+        pokemons.add("pumpkaboo");
+        String pokemonFinalName = pokemonName;
+
+        for(String pokemon : pokemons){
+            if(pokemonName.contains(pokemon)){
+                pokemonFinalName = pokemon;
+                break;
+            }
+        }
+
+        return pokemonFinalName;
     }
 }
